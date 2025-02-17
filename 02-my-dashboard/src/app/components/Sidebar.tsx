@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IoBrowsersOutline, IoLogoReact } from "react-icons/io5";
+import { IoBrowsersOutline, IoCalculator, IoLogoReact } from "react-icons/io5";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 
 const menuItems = [
@@ -11,7 +11,7 @@ const menuItems = [
   },
   {
     path: "/dashboard/counter",
-    icon: <IoBrowsersOutline size={40} />,
+    icon: <IoCalculator size={40} />,
     title: "Counter",
     subtitle: "Contador Client-side",
   },
