@@ -1,38 +1,28 @@
-import { Pokemon } from "@/pokemons";
+import { Pokemon, PokemonsResponse } from "@/pokemons";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ q: string; b: string }>;
+  params: Promise<{ name: string }>;
 }
 
 export async function generateStaticParams() {
-  const static151Pokemons = Array.from(
-    { length: 151 },
-    (_, index) => `${index + 1}`
-  );
+  const data: PokemonsResponse = await fetch(
+    "https://pokeapi.co/api/v2/pokemon?limit=151"
+  ).then((res) => res.json());
 
-  return static151Pokemons.map((id) => ({ id }));
-
-  // return [
-  //   { id: "1" },
-  //   { id: "2" },
-  //   { id: "3" },
-  //   { id: "4" },
-  //   { id: "5" },
-  //   { id: "6" },
-  // ];
+  const static151Pokemons = data.results.map((pokemon) => pokemon.name);
+  return static151Pokemons.map((name) => ({ name }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { id } = await params;
-    const { name } = await getPokemonById(id);
+    const { name } = await params;
+    const pokemon = await getPokemonById(name);
 
     return {
-      title: `#${id} - ${name}`,
+      title: `#${pokemon.id} - ${name}`,
       description: `Informacion sobre el pokemon ${name}`,
     };
   } catch (error) {
@@ -45,9 +35,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const getPokemonById = async (id: string): Promise<Pokemon> => {
+const getPokemonById = async (name: string): Promise<Pokemon> => {
   try {
-    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
+    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, {
       cache: "force-cache", //cambiar
       // next: { revalidate: 60 * 60 * 30 * 6 }, en 6 meses se revalida
     }).then((res) => res.json());
@@ -60,13 +50,11 @@ const getPokemonById = async (id: string): Promise<Pokemon> => {
   }
 };
 
-export default async function PokemonPage({ params, searchParams }: Props) {
-  const { id } = await params;
-  const slug2 = await searchParams;
+export default async function PokemonPage({ params }: Props) {
+  const { name } = await params;
   // console.log(slug);
-  console.log(slug2);
 
-  const pokemon = await getPokemonById(id);
+  const pokemon = await getPokemonById(name);
 
   return (
     <div className="flex mt-5 flex-col items-center text-slate-800">
