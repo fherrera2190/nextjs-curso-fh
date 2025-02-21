@@ -2,17 +2,15 @@
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import * as todoApi from "../helpers/todos";
-import { useRouter } from "next/navigation";
-import { Todo } from "@prisma/client";
+// import * as todoApi from "../helpers/todos";
+// import { useRouter } from "next/navigation";
+import { addTodo, deleteTodos } from "../actions/todo-actions";
 
-interface Props {
-  todos?: Todo[];
-}
-export const NewTodo = ({ todos = [] }: Props) => {
+
+export const NewTodo = () => {
   const [formData, setFormData] = useState({ description: "" });
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,15 +21,17 @@ export const NewTodo = ({ todos = [] }: Props) => {
 
     if (!formData.description) return;
 
-    await todoApi.createTodo(formData.description);
-
+    // await todoApi.createTodo(formData.description);
+    await addTodo(formData.description);
     setFormData({ ...formData, ["description"]: "" });
-    router.refresh();
+    // router.refresh();
   };
 
   const deleteCompletes = async () => {
-    await todoApi.deleteTodos();
-    router.refresh();
+    // await todoApi.deleteTodos();
+    // router.refresh();
+
+    await deleteTodos();
   };
 
   return (
