@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbo",
+    "prisma":"npx prisma migrate dev && npx prisma generate",
     "build": "next build",
-    "start": "next start",
+    "start": "npm run prisma && next start",
     "lint": "next lint"
   },
   "dependencies": {
