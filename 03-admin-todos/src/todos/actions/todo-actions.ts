@@ -1,18 +1,17 @@
 "use server";
 
+import { getUserServerSession } from "@/auth/actions/auth-actions";
 import prisma from "@/lib/prisma";
 import { Todo } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-
-
-export const sleep =async (seconds: number)=>{
-  return new Promise((resolve)=>{
-    setTimeout(()=>{
-      resolve(true)
-    }, seconds * 1000)
-  })
-}
+export const sleep = async (seconds: number) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, seconds * 1000);
+  });
+};
 
 export const toggleTodo = async (
   id: string,
@@ -36,8 +35,18 @@ export const toggleTodo = async (
 };
 
 export const addTodo = async (description: string) => {
+  const user = await getUserServerSession();
+
   try {
-    const todo = await prisma.todo.create({ data: { description } });
+    if (!user || !user.id) {
+      throw new Error("User not logged in");
+    }
+
+    const todo = await prisma.todo.create({
+      data: { description, userId: user.id },
+    });
+
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>", todo);
     revalidatePath("/dashboard/server-todos"); //actualiza solo el componente del path
 
     return todo;

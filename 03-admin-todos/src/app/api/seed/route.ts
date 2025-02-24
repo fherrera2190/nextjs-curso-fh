@@ -1,29 +1,40 @@
 import prisma from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
+  void request;
   await prisma.todo.deleteMany();
-  const todo = await prisma.todo.createMany({
-    data: [
-      {
-        description: "Learn Next.js",
-        complete: true,
+  await prisma.user.deleteMany();
+
+  await prisma.user.create({
+    data: {
+      email: "test1@google.com",
+      password: bcrypt.hashSync("123456", 10),
+      roles: ["admin", "client", "super-user"],
+      todos: {
+        create: [
+          {
+            description: "Learn Next.js",
+            complete: true,
+          },
+          {
+            description: "Learn Prisma",
+          },
+          {
+            description: "Learn TailwindCSS",
+          },
+          {
+            description: "Learn TypeScript",
+          },
+          {
+            description: "Learn GraphQL",
+          },
+        ],
       },
-      {
-        description: "Learn Prisma",
-      },
-      {
-        description: "Learn TailwindCSS",
-      },
-      {
-        description: "Learn TypeScript",
-      },
-      {
-        description: "Learn GraphQL",
-      },
-    ],
+    },
   });
-  console.log(todo);
+
   return NextResponse.json({
     message: "Seed executed",
   });
