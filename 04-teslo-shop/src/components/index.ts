@@ -13,3 +13,7 @@ export * from "./product/size-selector/SizeSelector";
 export * from "./product/quantity-selector/QuantitySelector";
 export * from "./product/slide-show/SlideShow";
 export * from "./product/slide-show/MobileSlideShow";
+
+
+//Footer
+export * from "./ui/footer/Footer";
