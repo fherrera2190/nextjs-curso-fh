@@ -13,10 +13,11 @@ export * from "./product/size-selector/SizeSelector";
 export * from "./product/quantity-selector/QuantitySelector";
 export * from "./product/slide-show/SlideShow";
 export * from "./product/slide-show/MobileSlideShow";
-
+export * from "./product/stock-label/StockLabel";
 
 //Footer
 export * from "./ui/footer/Footer";
 
 //Pagination
 export * from "./ui/pagination/Pagination";
+

@@ -1,4 +1,7 @@
-import { getPaginatedProductsWithImages } from "@/actions/product/product-pagination";
+export const revalidate = 60;
+
+
+import { getPaginatedProductsWithImages } from "@/actions/product/";
 import { Pagination, ProductGrid, Title } from "@/components";
 import { Gender } from "@prisma/client";
 import { redirect } from "next/navigation";
@@ -26,16 +29,15 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const labels: Record<string, string> = {
     men: "para Hombres",
     women: "para Mujeres",
-    kids: "para Niños",
+    kid: "para Niños",
     unisex: "para Todos",
   };
 
-  void labels;
 
   return (
     <>
       <Title
-        title={`Artículos ${gender}`}
+        title={`Artículos ${labels[gender]}`}
         subTitle="Todos los productos"
         className="mb-2"
       />

@@ -1,4 +1,6 @@
-import { getPaginatedProductsWithImages } from "@/actions/product/product-pagination";
+export const revalidate = 60;
+
+import { getPaginatedProductsWithImages } from "@/actions/product";
 import { Pagination, ProductGrid, Title } from "@/components";
 // import { Product } from "@/interfaces";
 import { redirect } from "next/navigation";
