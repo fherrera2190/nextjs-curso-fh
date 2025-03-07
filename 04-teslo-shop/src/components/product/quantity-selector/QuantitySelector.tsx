@@ -7,6 +7,7 @@ interface Props {
   onQuantityChanged: (quantity: number) => void;
 }
 export const QuantitySelector = ({ quantity, onQuantityChanged }: Props) => {
+  
   const onValueChange = (value: number) => {
     const newValue = value + quantity;
 
