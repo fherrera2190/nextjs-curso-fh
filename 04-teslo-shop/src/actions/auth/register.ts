@@ -23,14 +23,14 @@ export const registerUser = async (
       },
     });
 
-    console.log(user);
+    // console.log(user);
+
     return {
       ok: true,
       user,
       message: "Usuario registrado correctamente",
     };
   } catch (error) {
-    // console.log(error)
     // console.log(error); me da error no se por que
     void error;
     return {

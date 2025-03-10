@@ -22,3 +22,21 @@ export const actionLogin = async (
     return "UnknownError";
   }
 };
+
+export const login = async (email: string, password: string) => {
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    return { ok: true, message: "Inicio de sesión exitoso" };
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+      message: "Error al iniciar sesión",
+    };
+  }
+};

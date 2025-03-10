@@ -25,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { email, password } = await signInSchema.parseAsync(
             credentials
           );
-          // console.log(">>>>>>>>>>>>>>>>>", email, password);
+          //console.log(">>>>>>>>>>>>>>>>>", email, password);
 
           if (!email || !password) return null;
 
@@ -60,11 +60,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.data = user;
       }
-      console.log(">>>>>>>>>>>>>>>", { token });
+      // console.log(">>>>>>>>>>>>>>>", { token });
       return token;
     },
     session: ({ session, token, user }) => {
-      console.log({ session, token, user });
+      // console.log({ session, token, user });
+      void user;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       session.user = token.data as any;
