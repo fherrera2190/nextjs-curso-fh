@@ -21,3 +21,6 @@ export * from "./ui/footer/Footer";
 //Pagination
 export * from "./ui/pagination/Pagination";
 
+//Session provider
+
+export * from "./provider/Provider";

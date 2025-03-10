@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { inter } from "@/config/fonts";
+import { Provider } from "@/components";
 
 export const metadata: Metadata = {
   title: { template: `%s - Teslo | Shop`, default: "Home - Teslo | Shop" },
@@ -15,8 +16,10 @@ export default function RootLayout({
 }>) {
   console.log(inter.className);
   return (
-    <html lang="es">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <Provider>
+      <html lang="es">
+        <body className={inter.className}>{children}</body>
+      </html>
+    </Provider>
   );
 }

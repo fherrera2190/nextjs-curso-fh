@@ -1,6 +1,6 @@
 export const revalidate = 604800; //7dias
 
-import { getProductBySlug } from "@/actions/product";
+import { getProductBySlug } from "@/actions";
 import {
   MobileSlideShow,
   SlideShow,
