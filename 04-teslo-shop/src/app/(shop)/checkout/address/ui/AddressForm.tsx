@@ -1,10 +1,16 @@
 "use client";
 
+import { deleteUserAddress, setUseraddress } from "@/actions";
+import type { Address, Country } from "@/interfaces";
+import { useAddressStore } from "@/store";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface FormInputs {
-  name: string;
+  firstname: string;
   lastname: string;
   address: string;
   address2?: string;
@@ -15,20 +21,50 @@ interface FormInputs {
   rememberAddress: boolean;
 }
 
-export const AddressForm = () => {
+interface Props {
+  countries: Country[];
+  userStoreAddress?: Partial<Address>;
+}
+
+export const AddressForm = ({ countries, userStoreAddress = {} }: Props) => {
   const {
     formState: { isValid },
     register,
     handleSubmit,
+    reset,
   } = useForm<FormInputs>({
     defaultValues: {
       //Leer de BD
+      ...userStoreAddress,
+      rememberAddress: false,
     },
   });
 
-  const onSumbit = (data: FormInputs) => {
-    console.log(data);
+  const { data: session } = useSession({
+    required: true,
+  });
+  const state = useAddressStore((state) => state);
+  const router = useRouter();
+  const onSumbit = async (data: FormInputs) => {
+    //console.log(data);
+    
+    state.setAddress(data);
+
+    const { rememberAddress, ...restAddress } = data;
+
+    if (rememberAddress) {
+      await setUseraddress(restAddress, session!.user.id);
+    } else {
+      await deleteUserAddress(session!.user.id);
+    }
+
+    router.push("/checkout");
   };
+
+  useEffect(() => {
+    if (!state.address.firstname) return;
+    reset(state.address);
+  }, [state]);
 
   return (
     <form
@@ -40,7 +76,7 @@ export const AddressForm = () => {
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register("name", { required: true })}
+          {...register("firstname", { required: true })}
         />
       </div>
 
@@ -97,7 +133,12 @@ export const AddressForm = () => {
           {...register("country", { required: true })}
         >
           <option value="">[ Seleccione ]</option>
-          <option value="CRI">Costa Rica</option>
+
+          {countries.map((country) => (
+            <option key={country.id} value={country.id}>
+              {country.name}
+            </option>
+          ))}
         </select>
       </div>
 
