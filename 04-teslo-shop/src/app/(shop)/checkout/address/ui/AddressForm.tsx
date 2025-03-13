@@ -48,9 +48,9 @@ export const AddressForm = ({ countries, userStoreAddress = {} }: Props) => {
   const onSumbit = async (data: FormInputs) => {
     //console.log(data);
     
-    state.setAddress(data);
-
+    
     const { rememberAddress, ...restAddress } = data;
+    state.setAddress(restAddress);
 
     if (rememberAddress) {
       await setUseraddress(restAddress, session!.user.id);
