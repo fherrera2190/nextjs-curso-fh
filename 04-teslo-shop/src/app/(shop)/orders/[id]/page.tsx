@@ -1,49 +1,37 @@
-import { Title } from "@/components";
-import { initialData } from "@/seed/seed";
-import clsx from "clsx";
+import { getOrderById } from "@/actions";
+import { PaypalButton, Title } from "@/components";
+import { currencyFormat } from "@/utils";
 import Image from "next/image";
-import { IoCardOutline } from "react-icons/io5";
+import { redirect } from "next/navigation";
+import { PaymentStatus } from "./ui/PaymentStatus";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-const productsInCart = initialData.products.slice(0, 3);
-
 export default async function OrderPage({ params }: Props) {
   const { id } = await params;
 
-  //Verificar id user admin ...
-  //redirect
+  const { ok, order } = await getOrderById(id);
+
+  if (!ok) redirect("/");
 
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px]">
-        <Title title={`Orden #${id}`} />
+        <Title title={`Orden #${id.split("-")[0]}`} />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* carrito */}
           <div className="flex flex-col mt-5">
-            <div
-              className={clsx(
-                "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
-                {
-                  "bg-red-500": false,
-                  "bg-green-700": true,
-                }
-              )}
-            >
-              <IoCardOutline size={30} />
-              {/* <span className="mx-2">Pendiente de pago</span> */}
-              <span className="mx-2">Pagada</span>
-            </div>
+            <PaymentStatus isPaid={order?.isPaid} />
             {/* items */}
-            {productsInCart.map((product) => (
-              <div key={product.slug} className="flex mb-5">
+            {order?.OrderItem.map((item) => (
+              <div key={item.product.slug + item.size} className="flex mb-5">
                 <Image
-                  src={`/products/${product.images[0]}`}
+                  src={`/products/${item.product.ProductImage[0].url}`}
                   width={100}
                   height={100}
-                  alt={product.title}
+                  alt={item.product.title}
                   className="mr-5 rounded"
                   style={{
                     width: "100px",
@@ -51,9 +39,13 @@ export default async function OrderPage({ params }: Props) {
                   }}
                 />
                 <div>
-                  <p>{product.title}</p>
-                  <p>${product.price} x 3</p>
-                  <p className="font-bold">Subtotal: ${product.price * 3}</p>
+                  <p>{item.size + " - " + item.product.title}</p>
+                  <p>
+                    ${item.price} x {item.quantity}
+                  </p>
+                  <p className="font-bold">
+                    Subtotal: {currencyFormat(item.price)}
+                  </p>
                 </div>
               </div>
             ))}
@@ -63,45 +55,53 @@ export default async function OrderPage({ params }: Props) {
           <div className="bg-white rounded-xl shadow-xl p-7 ">
             <h2 className="text-2xl mb-2">Dirección de entrega</h2>
             <div className="mb-10">
-              <p className="text-xl">John Doe</p>
-              <p>123 Main St</p>
-              <p>Col. Centro</p>
-              <p>Alcaldia de Nemesis</p>
-              <p>Ciudad de Nemesis</p>
-              <p>CP: 00000</p>
-              <p>Phone: 0000000000</p>
+              <p className="text-xl">
+                {order?.OrderAddress?.firstname +
+                  " " +
+                  order?.OrderAddress?.lastname}
+              </p>
+              <p>{order?.OrderAddress?.address}</p>
+              <p>
+                {order?.OrderAddress?.address2}, {order?.OrderAddress?.city}
+              </p>
+              <p>{order?.OrderAddress?.postalCode}</p>
+              <p>
+                {order?.OrderAddress?.city}, {order?.OrderAddress?.countryId}
+              </p>
+              <p>{order?.OrderAddress?.phone}</p>
             </div>
             {/* Divider */}
             <div className="w-ful h-0.5 rounded bg-gray-200 mb-10"></div>
             <h2 className="text-2xl mb-2">Resume de orden</h2>
             <div className="grid grid-cols-2">
               <span>No. Productos</span>
-              <span className="text-right ">3 artículos</span>
+              <span className="text-right ">
+                $
+                {order?.itemsInOrder === 1
+                  ? "1 articulo"
+                  : `${order?.itemsInOrder} articulos`}
+              </span>
 
               <span>Subtotal</span>
-              <span className="text-right ">100</span>
+              <span className="text-right ">
+                {currencyFormat(order!.subTotal)}
+              </span>
 
               <span>Impuestos (15%)</span>
-              <span className="text-right ">$100</span>
+              <span className="text-right ">{currencyFormat(order!.tax)}</span>
 
               <span className="text-2xl mt-5">Total:</span>
-              <span className="text-2xl text-right mt-5 ">$100</span>
+              <span className="text-2xl text-right mt-5 ">
+                {currencyFormat(order!.total)}
+              </span>
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              <div
-                className={clsx(
-                  "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
-                  {
-                    "bg-red-500": false,
-                    "bg-green-700": true,
-                  }
-                )}
-              >
-                <IoCardOutline size={30} />
-                {/* <span className="mx-2">Pendiente de pago</span> */}
-                <span className="mx-2">Pagada</span>
-              </div>
+              {order?.isPaid ? (
+                <PaymentStatus isPaid={order?.isPaid} />
+              ) : (
+                <PaypalButton orderId={id} amount={order!.total} />
+              )}
             </div>
           </div>
         </div>

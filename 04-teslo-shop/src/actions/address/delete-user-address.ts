@@ -12,7 +12,8 @@ export const deleteUserAddress = async (userId: string) => {
 
     return { ok: true, message: "Dirección eliminada correctamente" };
   } catch (error) {
-    console.log(error);
+    void error;
+    // console.log(error);
     return { ok: false, message: "Error al eliminar la dirección" };
   }
 };

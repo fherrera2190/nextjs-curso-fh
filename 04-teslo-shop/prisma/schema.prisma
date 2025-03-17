@@ -115,7 +115,7 @@ model Order {
   tax          Float
   total        Float
   itemsInOrder Int
-  isPaid       Boolean
+  isPaid       Boolean   @default(false)
   paidAt       DateTime?
 
   createdAt DateTime @default(now())
@@ -126,6 +126,11 @@ model Order {
 
   OrderItem    OrderItem[]
   OrderAddress OrderAddress?
+
+
+  transactionId String?
+
+
 }
 
 model OrderItem {
@@ -152,7 +157,7 @@ model OrderAddress {
   city       String
   phone      String
 
-  //Relacones
+  //Relaciones
   country   Country @relation(fields: [countryId], references: [id])
   countryId String
 

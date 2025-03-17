@@ -12,6 +12,7 @@ export const PlaceOrder = () => {
   const state = useCartStore((state) => state);
   const address = useAddressStore((state) => state.address);
   const { itemsInCart, tax, total, subsTotal } = state.getSummaryInformation();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     setLoaded(true);
@@ -26,10 +27,18 @@ export const PlaceOrder = () => {
       size: product.size,
     }));
 
-    // console.log({ address, productsToOrder });
     const resp = await placeOrder(productsToOrder, address);
-    console.log(resp);
 
+    if (!resp.ok) {
+      setIsPlacingOrder(false);
+
+      setErrorMessage(resp.message!);
+      return;
+    }
+
+    state.clearCart();
+    console.log(resp.order);
+    window.location.replace(`/orders/${resp.order}`);
     setIsPlacingOrder(false);
   };
 
@@ -37,7 +46,7 @@ export const PlaceOrder = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-xl p-7 ">
-      <h2 className="text-2xl mb-2">Dirección de entrega</h2>
+      <h2 className="text-2xl mb-2">Dirección dZe entrega</h2>
       <div className="mb-10">
         <p className="text-xl">
           {address.firstname} {address.lastname}
@@ -85,7 +94,7 @@ export const PlaceOrder = () => {
           </span>
         </p>
 
-        {/* <p className="text-red-600">Error de creación</p> */}
+        <p className="text-red-600">{errorMessage}</p>
         <button
           className={clsx({
             "btn-primary": !isPlacingOrder,

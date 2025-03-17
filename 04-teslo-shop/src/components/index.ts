@@ -23,4 +23,6 @@ export * from "./ui/pagination/Pagination";
 
 //Session provider
 
-export * from "./provider/Provider";
+export * from "./providers/Providers";
+
+export * from "./paypal/PaypalButton";
