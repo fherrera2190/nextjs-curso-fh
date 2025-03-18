@@ -14,7 +14,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log(inter.className);
+  // console.log(inter.className);
   return (
     <Providers>
       <html lang="es">
