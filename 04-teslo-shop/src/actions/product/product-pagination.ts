@@ -42,12 +42,9 @@ export const getPaginatedProductsWithImages = async ({
     //2. Obtener el total
     // pag = 40/10 = 4
     // pag = 41/10 = 4 Math.ceil(41/10) = 5
-    //todo:
     const totalCount = await prisma.product.count({ where: { gender } });
-    // console.log(">>>>>>>>>>>>>>>>>>>",totalCount);
     const totalPages = Math.ceil(totalCount / take);
 
-    // console.log(products);
     return {
       currentPage: page,
       totalPages,
