@@ -1,108 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proyectos</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
-  <body class="bg-gray-900 min-h-screen text-white">
-    <!-- Contenedor principal -->
-    <div class="p-8">
-      <!-- Grid de cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Card 1 -->
-        <div
-          class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
-        >
-          <div>
-            <h3 class="text-xl font-bold text-gray-100 mb-3">First Steps</h3>
-            <p class="text-gray-300 mb-4">
-              es una aplicación web que marca nuestros primeros pasos en el
-              desarrollo con Next.js. El proyecto incluye una página de inicio
-              (Home) y varias rutas para explorar. Durante su desarrollo,
-              exploramos la diferencia entre Layout y Page en Next.js,
-              aprendiendo cómo estructurar y organizar la aplicación. El enfoque
-              principal del proyecto fue educativo, permitiéndonos
-              familiarizarnos con los conceptos básicos y las primeras
-              interacciones con los datos.
-            </p>
-          </div>
-          <a href="https://nextjs-curso-fh-01-first-steps.vercel.app/" class="text-blue-400 hover:text-blue-600 font-semibold"
-            >Demo</a
-          >
-        </div>
 
-        <!-- Card 2 -->
-        <div
-          class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
-        >
-          <div>
-            <h3 class="text-xl font-bold text-gray-100 mb-3">My Dashboard</h3>
-            <p class="text-gray-300 mb-4">
-              es una aplicación web que permite explorar la información de
-              Pokémon de manera interactiva. Utiliza Next.js para el frontend y
-              se conecta a una API externa para obtener los datos de los
-              Pokémon. Los usuarios pueden dar "likes" a los Pokémon, y el
-              estado se gestiona con Redux Toolkit y se guarda en LocalStorage
-              para persistir la información. La app también usa rutas en Next.js
-              para mostrar detalles adicionales de cada Pokémon.
-            </p>
-          </div>
-          <a
-            href="https://nextjs-curso-fh-02-dashboard.vercel.app/"
-            class="text-blue-400 hover:text-blue-600 font-semibold"
-            >Demo</a
-          >
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyectos</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
 
-        <!-- Card 3 -->
-        <div
-          class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
-        >
-          <div>
-            <h3 class="text-xl font-bold text-gray-100 mb-3">Admin Todos</h3>
-            <p class="text-gray-300 mb-4">
-              es una aplicación de gestión de tareas que permite a los usuarios
-              crear, editar y eliminar tareas. El backend está construido con
-              Next.js y Prisma, usando PostgreSQL como base de datos. La
-              autenticación se maneja con Auth.js, permitiendo iniciar sesión
-              con GitHub y Google. La aplicación está desplegada en Docker, lo
-              que facilita su escalabilidad.
-            </p>
-          </div>
-          <a
-            href="https://nextjs-curso-fh-03-admin-todos.vercel.app"
-            target="_blank"
-            class="text-blue-400 hover:text-blue-600 font-semibold"
-            >Demo</a
-          >
+<body class="bg-gray-900 min-h-screen text-white">
+  <!-- Contenedor principal -->
+  <div class="p-8">
+    <!-- Grid de cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div
+        class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
+        <div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3">First Steps</h3>
+          <p class="text-gray-300 mb-4">
+            es una aplicación web que marca nuestros primeros pasos en el
+            desarrollo con Next.js. El proyecto incluye una página de inicio
+            (Home) y varias rutas para explorar. Durante su desarrollo,
+            exploramos la diferencia entre Layout y Page en Next.js,
+            aprendiendo cómo estructurar y organizar la aplicación. El enfoque
+            principal del proyecto fue educativo, permitiéndonos
+            familiarizarnos con los conceptos básicos y las primeras
+            interacciones con los datos.
+          </p>
         </div>
+        <a href="https://nextjs-curso-fh-01-first-steps.vercel.app/" target="_blank"
+          class="text-blue-400 hover:text-blue-600 font-semibold">Demo</a>
+      </div>
 
-        <!-- Card 4 -->
-        <div
-          class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
-        >
-          <div>
-            <h3 class="text-xl font-bold text-gray-100 mb-3">Teslo Shop</h3>
-            <p class="text-gray-300 mb-4">
-              una réplica del sitio de Tesla, utilizando Next.js para el
-              frontend, Prisma con PostgreSQL, Docker para contenedorización, y
-              Auth.js para la autenticación. Implementamos un sistema de pagos
-              con PayPal SDK y gestionamos el estado de la aplicación con
-              Zustand. Las funcionalidades clave incluyen la gestión de
-              productos, carrito de compras y pago, con un enfoque en la
-              experiencia del usuario y el rendimiento.
-            </p>
-          </div>
-          <a
-            href="https://nextjs-curso-fh-teslo-shop.vercel.app/"
-            target="_blank"
-            class="text-blue-400 hover:text-blue-600 font-semibold"
-            >Demo</a
-          >
+      <!-- Card 2 -->
+      <div
+        class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
+        <div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3">My Dashboard</h3>
+          <p class="text-gray-300 mb-4">
+            es una aplicación web que permite explorar la información de
+            Pokémon de manera interactiva. Utiliza Next.js para el frontend y
+            se conecta a una API externa para obtener los datos de los
+            Pokémon. Los usuarios pueden dar "likes" a los Pokémon, y el
+            estado se gestiona con Redux Toolkit y se guarda en LocalStorage
+            para persistir la información. La app también usa rutas en Next.js
+            para mostrar detalles adicionales de cada Pokémon.
+          </p>
         </div>
+        <a href="https://nextjs-curso-fh-02-dashboard.vercel.app/" target="_blank"
+          class="text-blue-400 hover:text-blue-600 font-semibold">Demo</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div
+        class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
+        <div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3">Admin Todos</h3>
+          <p class="text-gray-300 mb-4">
+            es una aplicación de gestión de tareas que permite a los usuarios
+            crear, editar y eliminar tareas. El backend está construido con
+            Next.js y Prisma, usando PostgreSQL como base de datos. La
+            autenticación se maneja con Auth.js, permitiendo iniciar sesión
+            con GitHub y Google. La aplicación está desplegada en Docker, lo
+            que facilita su escalabilidad.
+          </p>
+        </div>
+        <a href="https://nextjs-curso-fh-03-admin-todos.vercel.app" target="_blank"
+          class="text-blue-400 hover:text-blue-600 font-semibold">Demo</a>
+      </div>
+
+      <!-- Card 4 -->
+      <div
+        class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
+        <div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3">Teslo Shop</h3>
+          <p class="text-gray-300 mb-4">
+            una réplica del sitio de Tesla, utilizando Next.js para el
+            frontend, Prisma con PostgreSQL, Docker para contenedorización, y
+            Auth.js para la autenticación. Implementamos un sistema de pagos
+            con PayPal SDK y gestionamos el estado de la aplicación con
+            Zustand. Las funcionalidades clave incluyen la gestión de
+            productos, carrito de compras y pago, con un enfoque en la
+            experiencia del usuario y el rendimiento.
+          </p>
+        </div>
+        <a href="https://nextjs-curso-fh-teslo-shop.vercel.app/" target="_blank"
+          class="text-blue-400 hover:text-blue-600 font-semibold">Demo</a>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
